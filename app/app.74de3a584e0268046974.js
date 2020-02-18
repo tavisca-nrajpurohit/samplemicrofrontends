@@ -9478,7 +9478,7 @@ const Reducer = (INITIAL_STATE = SEARCH_INITIAL_STATE) => {
                 if (action.payload === '') {
                     return Object.assign(Object.assign({}, state), { data: [], loading: false, error: '', query: action.payload });
                 }
-                return Object.assign(Object.assign({}, state), { loading: true, error: '', query: action.payload });
+                return Object.assign(Object.assign({}, state), {data: [], loading: true, error: '', query: action.payload });
             case __WEBPACK_IMPORTED_MODULE_0__actions__["a" /* SEARCH_COMPLETE */]:
                 return Object.assign(Object.assign({}, state), { data: action.payload, error: '', loading: false });
             case __WEBPACK_IMPORTED_MODULE_0__actions__["b" /* SEARCH_ERROR */]:

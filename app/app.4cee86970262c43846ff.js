@@ -6736,6 +6736,7 @@ class MyCart extends lit_element_1.LitElement {
         this.propPath = "app";
         this.searches = [];
         this.numberOfSearches = 0;
+        this.loaderRunning = true;
     }
     firstUpdated() {
         if (this.store) {
@@ -6753,8 +6754,10 @@ class MyCart extends lit_element_1.LitElement {
         //////////////////////////////////////////////////////
         const search$ = store_connect_1.connect('search');
         search$.subscribe(res => {
-            alert("CART connect called");
+            //alert("CART connect called");
             console.log("cart response", res);
+            this.loaderRunning = res["state"]["loading"];
+            console.log("loading", this.loaderRunning);
             if (res["state"]["data"][0] != undefined) {
                 let stdata = res["state"]["data"][0]["action"];
                 this.store.dispatch(actions_1.ACTION_ADD_TO_CART_REQUEST(stdata.payload, stdata.formType));
@@ -6765,6 +6768,7 @@ class MyCart extends lit_element_1.LitElement {
     render() {
         return lit_element_1.html `
         <h1>Cart</h1>
+        ${this.loaderRunning ? lit_element_1.html `<div id="loader">LOADING ...<br></div>` : lit_element_1.html `<br>`}
         ${this.numberOfSearches > 0 ? lit_element_1.html `
           <h3>Items:</h3>
           <ul>
@@ -6800,6 +6804,10 @@ __decorate([
     lit_element_1.property({ type: Array }),
     __metadata("design:type", Object)
 ], MyCart.prototype, "searches", void 0);
+__decorate([
+    lit_element_1.property({ type: Boolean }),
+    __metadata("design:type", Object)
+], MyCart.prototype, "loaderRunning", void 0);
 exports.MyCart = MyCart;
 customElements.define('my-cart', MyCart);
 

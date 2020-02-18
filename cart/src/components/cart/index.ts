@@ -15,6 +15,9 @@ export class MyCart extends LitElement {
   @property({type:Array}) searches=[];
   numberOfSearches=0;
 
+  @property({type : Boolean})  
+  loaderRunning = true;
+
   constructor(){
       super();
   }
@@ -35,8 +38,11 @@ export class MyCart extends LitElement {
     //////////////////////////////////////////////////////
     const search$ = connect('search');
     search$.subscribe(res => {
-        alert("CART connect called");
+        //alert("CART connect called");
         console.log("cart response",res);
+        this.loaderRunning = res["state"]["loading"];
+        console.log("loading",this.loaderRunning);
+
         if(res["state"]["data"][0]!=undefined){   
           let stdata:any = res["state"]["data"][0]["action"];
           this.store.dispatch(ACTION_ADD_TO_CART_REQUEST(stdata.payload,stdata.formType));
@@ -49,6 +55,7 @@ export class MyCart extends LitElement {
   render(){
     return html`
         <h1>Cart</h1>
+        ${this.loaderRunning?html`<div id="loader">LOADING ...<br></div>`:html`<br>`}
         ${this.numberOfSearches>0?html`
           <h3>Items:</h3>
           <ul>
