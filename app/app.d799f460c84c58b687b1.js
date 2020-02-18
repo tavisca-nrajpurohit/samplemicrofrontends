@@ -4241,11 +4241,12 @@ customElements.define('main-form', App);
 Object.defineProperty(exports, "__esModule", { value: true });
 const dynamic_redux_1 = __webpack_require__(7);
 const redux_devtools_extension_1 = __webpack_require__(49);
+//import {orxeMiddleware} from '@orxe/store-middleware';
 const rootReducer = (state = {}, action) => {
     return state;
 };
 const consoleLogger = store => next => action => {
-    console.log("__________ LOGGER SERVICE __________");
+    console.log("__________ FORM LOGGER SERVICE __________");
     console.log('Previous State', store.getState());
     console.log('Dispatching', action);
     let result = next(action);
@@ -4254,7 +4255,7 @@ const consoleLogger = store => next => action => {
 };
 exports.store = dynamic_redux_1.createStore(dynamic_redux_1.combineReducers({
     app: rootReducer
-}), redux_devtools_extension_1.composeWithDevTools(dynamic_redux_1.applyMiddleware(consoleLogger)));
+}), redux_devtools_extension_1.composeWithDevTools(dynamic_redux_1.applyMiddleware()));
 
 
 /***/ }),
@@ -5965,9 +5966,15 @@ class SearchForm extends lit_element_1.LitElement {
         ////////////////////////////////////////////////////////////////////
         search_contract_1.SearchContracts.searchStart(this.searchQuery);
         setTimeout(() => {
-            const searchResults = [{ result: 'Seach Completed for' + this.searchQuery + '!' }];
+            const searchResults = [{
+                    result: 'Seach Completed for- ' + this.searchQuery + '!',
+                    action: {
+                        type: "ADD_TO_LIST_REQUEST",
+                        formType: 'search',
+                        payload: data
+                    }
+                }];
             search_contract_1.SearchContracts.searchComplete(searchResults);
-            alert("Search Complete triggered !");
         }, 5000);
         ////////////////////////////////////////////////////////////////////
     }
@@ -9215,6 +9222,7 @@ class SearchContracts {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return storeInstance; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__orxe_store_middleware__ = __webpack_require__(90);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_redux__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_redux_thunk__ = __webpack_require__(96);
@@ -9232,7 +9240,12 @@ const devCompose = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || __WEBPACK_IMPO
 // section of the wiki for more details:
 // https://github.com/Polymer/pwa-starter-kit/wiki/4.-Redux-and-state-management
 const store = Object(__WEBPACK_IMPORTED_MODULE_1_redux__["createStore"])((state) => state, devCompose(Object(__WEBPACK_IMPORTED_MODULE_3_pwa_helpers_lazy_reducer_enhancer_js__["a" /* lazyReducerEnhancer */])(__WEBPACK_IMPORTED_MODULE_1_redux__["combineReducers"]), Object(__WEBPACK_IMPORTED_MODULE_1_redux__["applyMiddleware"])(__WEBPACK_IMPORTED_MODULE_0__orxe_store_middleware__["a" /* orxeMiddleware */], __WEBPACK_IMPORTED_MODULE_2_redux_thunk__["a" /* default */])));
-/* harmony export (immutable) */ __webpack_exports__["a"] = store;
+(function initializeStore() {
+    if (!window.store) {
+        window.store = store;
+    }
+})();
+const storeInstance = window.store;
 
 //# sourceMappingURL=index.js.map
 

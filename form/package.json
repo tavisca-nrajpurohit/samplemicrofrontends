@@ -14,7 +14,7 @@
   "dependencies": {
     "@material/mwc-button": "^0.12.0",
     "@orxe/search-contract": "0.0.1",
-    "@orxe/store-connect": "0.0.1",
+    "@orxe/store-middleware": "0.0.1",
     "@polymer/polymer": "next",
     "@rakoon-badshah/demo-input": "^0.1.5",
     "@rakoon-badshah/dynamic-redux": "^3.2.2",

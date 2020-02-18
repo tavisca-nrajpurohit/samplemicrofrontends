@@ -3,6 +3,7 @@ import {reducer} from './state/reducer';
 import {get} from '@rakoon-badshah/dynamic-redux';
 import {GetAbstract} from './CartApi';
 import {connect} from '@orxe/store-connect';
+import {ACTION_ADD_TO_CART_REQUEST} from './state/actions';
 
 export class MyCart extends LitElement {
 
@@ -34,7 +35,12 @@ export class MyCart extends LitElement {
     //////////////////////////////////////////////////////
     const search$ = connect('search');
     search$.subscribe(res => {
-        alert(res);
+        alert("CART connect called");
+        console.log("cart response",res);
+        if(res["state"]["data"][0]!=undefined){   
+          let stdata:any = res["state"]["data"][0]["action"];
+          this.store.dispatch(ACTION_ADD_TO_CART_REQUEST(stdata.payload,stdata.formType));
+        }
     });
     //////////////////////////////////////////////////////
 

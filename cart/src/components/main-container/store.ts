@@ -1,13 +1,13 @@
 import { createStore, combineReducers, applyMiddleware} from '@rakoon-badshah/dynamic-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-
+//import {orxeMiddleware} from '@orxe/store-middleware';
 
 const rootReducer= (state = {}, action)=>{
     return state;
 }
 
 const consoleLogger = store => next => action =>{
-    console.log("__________ LOGGER SERVICE __________");
+    console.log("__________ CART LOGGER SERVICE __________");
     console.log('Previous State', store.getState());
     console.log('Dispatching', action);
     let result = next(action);
@@ -18,5 +18,5 @@ const consoleLogger = store => next => action =>{
 export const store = createStore(combineReducers({
     app: rootReducer
 }),composeWithDevTools(
-    applyMiddleware(consoleLogger)
+    applyMiddleware()
 ));

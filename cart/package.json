@@ -15,6 +15,7 @@
   "dependencies": {
     "@orxe/search-contract": "0.0.1",
     "@orxe/store-connect": "0.0.1",
+    "@orxe/store-middleware": "0.0.1",
     "@polymer/polymer": "next",
     "@rakoon-badshah/dynamic-redux": "^3.2.2",
     "@webcomponents/webcomponentsjs": "1.0.14",

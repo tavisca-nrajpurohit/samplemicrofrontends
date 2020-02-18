@@ -56,9 +56,15 @@ export class SearchForm extends LitElement {
     ////////////////////////////////////////////////////////////////////
     SearchContracts.searchStart(this.searchQuery);
     setTimeout(() => {
-      const searchResults = [{result: 'Seach Completed for'+this.searchQuery+'!'}];
+      const searchResults = [{
+        result: 'Seach Completed for- '+this.searchQuery+'!',
+        action: {
+          type: "ADD_TO_LIST_REQUEST",
+          formType:'search',
+          payload: data
+      }
+    }];
       SearchContracts.searchComplete(searchResults);
-      alert("Search Complete triggered !");
       }, 5000);
     ////////////////////////////////////////////////////////////////////
   }
